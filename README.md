@@ -2,6 +2,13 @@
 
 Track daily income and expenses, upload receipt images, and review yearly summaries.
 
+## Quick start from GitHub
+
+```bash
+git clone https://github.com/Rasy84/Expense-Tracker.git
+cd "Expense-Tracker"
+```
+
 ## Setup
 
 ```bash
