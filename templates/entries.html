@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h2>All entries</h2>
+  {% if entries %}
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Category</th>
+        <th>Amount</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in entries %}
+      <tr>
+        <td>{{ entry.entry_date }}</td>
+        <td>{{ entry.entry_type }}</td>
+        <td>{{ entry.category or "-" }}</td>
+        <td>${{ "%.2f"|format(entry.amount) }}</td>
+        <td>{{ entry.note or "-" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No entries yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

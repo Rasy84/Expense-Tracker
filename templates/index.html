@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h2>{{ current_year }} overview</h2>
+  <div class="stats-grid">
+    <div>
+      <p class="label">Total income</p>
+      <p class="value income">${{ "%.2f"|format(total_income) }}</p>
+    </div>
+    <div>
+      <p class="label">Total expenses</p>
+      <p class="value expense">${{ "%.2f"|format(total_expense) }}</p>
+    </div>
+    <div>
+      <p class="label">Net</p>
+      <p class="value">{{ "%.2f"|format(net) }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Recent entries</h2>
+  {% if recent_entries %}
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Category</th>
+        <th>Amount</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in recent_entries %}
+      <tr>
+        <td>{{ entry.entry_date }}</td>
+        <td>{{ entry.entry_type }}</td>
+        <td>{{ entry.category or "-" }}</td>
+        <td>${{ "%.2f"|format(entry.amount) }}</td>
+        <td>{{ entry.note or "-" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No entries yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

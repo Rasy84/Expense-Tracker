@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card form-card">
+  <h2>Upload receipt</h2>
+  <p class="hint">
+    Upload a PNG or JPG. OCR will attempt to detect total and date.
+  </p>
+  <form method="post" enctype="multipart/form-data">
+    <div class="form-row">
+      <label for="receipt">Receipt image</label>
+      <input type="file" name="receipt" id="receipt" accept=".png,.jpg,.jpeg" required />
+    </div>
+    <button type="submit" class="primary">Upload receipt</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h2>Receipts</h2>
+  {% if receipts %}
+  <table>
+    <thead>
+      <tr>
+        <th>Uploaded</th>
+        <th>Receipt</th>
+        <th>Detected date</th>
+        <th>Detected amount</th>
+        <th>Linked entry</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for receipt in receipts %}
+      <tr>
+        <td>{{ receipt.created_at[:10] }}</td>
+        <td>
+          <a href="{{ url_for('uploaded_file', filename=receipt.filename) }}" target="_blank">
+            {{ receipt.filename }}
+          </a>
+        </td>
+        <td>{{ receipt.detected_date or "-" }}</td>
+        <td>
+          {% if receipt.detected_amount %}
+            ${{ "%.2f"|format(receipt.detected_amount) }}
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>
+          {% if receipt.entry_amount %}
+            ${{ "%.2f"|format(receipt.entry_amount) }} on {{ receipt.entry_date }}
+          {% else %}
+            Not linked
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No receipts uploaded yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

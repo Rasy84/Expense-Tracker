@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <header>
+      <div class="container header-row">
+        <h1>Expense Tracker</h1>
+        <nav>
+          <a href="{{ url_for('index') }}">Dashboard</a>
+          <a href="{{ url_for('entries') }}">Entries</a>
+          <a href="{{ url_for('new_entry') }}">Add Entry</a>
+          <a href="{{ url_for('upload_receipt') }}">Upload Receipt</a>
+          <a href="{{ url_for('receipts') }}">Receipts</a>
+          <a href="{{ url_for('yearly_summary') }}">Yearly Summary</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="messages">
+        {% for category, message in messages %}
+        <div class="message {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

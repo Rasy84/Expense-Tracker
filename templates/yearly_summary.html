@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h2>Yearly summary</h2>
+  <form class="inline-form" method="get">
+    <label for="year">Year</label>
+    <input type="number" name="year" id="year" value="{{ year }}" min="2000" max="2100" />
+    <button type="submit">Go</button>
+  </form>
+
+  <div class="stats-grid">
+    <div>
+      <p class="label">Total income</p>
+      <p class="value income">${{ "%.2f"|format(total_income) }}</p>
+    </div>
+    <div>
+      <p class="label">Total expenses</p>
+      <p class="value expense">${{ "%.2f"|format(total_expense) }}</p>
+    </div>
+    <div>
+      <p class="label">Net</p>
+      <p class="value">{{ "%.2f"|format(net) }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <h3>Monthly totals</h3>
+  {% if monthly_rows %}
+  <table>
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th>Income</th>
+        <th>Expense</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in monthly_rows %}
+      <tr>
+        <td>{{ row.month }}</td>
+        <td>${{ "%.2f"|format(row.income or 0) }}</td>
+        <td>${{ "%.2f"|format(row.expense or 0) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No entries for this year.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h3>Top expense categories</h3>
+  {% if category_rows %}
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in category_rows %}
+      <tr>
+        <td>{{ row.category or "Uncategorized" }}</td>
+        <td>${{ "%.2f"|format(row.total or 0) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No expenses for this year.</p>
+  {% endif %}
+</section>
+{% endblock %}
