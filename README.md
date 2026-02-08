@@ -33,3 +33,7 @@ Open `http://127.0.0.1:5000` in your browser.
 
 - Receipt OCR is optional. If OCR libraries or Tesseract are missing, the upload still saves the receipt but won't extract amounts.
 - Data is stored locally in `expense_tracker.db`.
+
+## License
+
+MIT
